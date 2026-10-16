@@ -87,10 +87,23 @@ Hui Admin 是一款开箱即用的中后台前端开发模板，基于原生 lay
 | nprogress | 顶部加载进度条 |
 | yaml | 配置文件解析 |
 
+## 仓库地址
+
+| 平台 | 地址 |
+| ---- | ---- |
+| Gitee（主仓库） | [https://gitee.com/xianrenqh/hui-admin-ui-v4](https://gitee.com/xianrenqh/hui-admin-ui-v4) |
+| GitHub（镜像，自动同步） | [https://github.com/xianrenqh/hui-admin-ui-v4](https://github.com/xianrenqh/hui-admin-ui-v4) |
+
+> 提交到 Gitee 后会同步推送 GitHub，两仓库保持一致。
+
 ## 快速开始
 
 ```bash
+# 从 Gitee 克隆
 git clone https://gitee.com/xianrenqh/hui-admin-ui-v4.git
+
+# 或从 GitHub 克隆
+git clone https://github.com/xianrenqh/hui-admin-ui-v4.git
 ```
 
 直接使用静态服务器打开根目录 `index.html` 即可，例如：
