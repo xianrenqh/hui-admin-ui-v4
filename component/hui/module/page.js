@@ -143,17 +143,26 @@ layui.define(['jquery', 'element'], function (exports) {
 
 	/**
 	 * 注入 HTML 到容器：DOM + 内联/外链脚本
+	 * @param href 页面自身 URL（可选）。注入模式下片段会被搬进壳文档，
+	 *             相对路径必须按页面自身 URL 预先解析成绝对 URL，
+	 *             否则部署在子路径（如 GitHub Pages /hui-admin-ui-v4/）时
+	 *             `../../xxx` 会被解析到域名根目录导致 404。
 	 */
-	page.prototype.injectHtml = function (html, container) {
+	page.prototype.injectHtml = function (html, container, href) {
 		var $frame = container.jquery ? container : $(container);
-		var parsed = this._parseFragment(html);
+		var baseUrl = href || $frame.attr('href') || $frame.attr('data-src') || '';
+		// baseUrl 可能是页面相对路径（如 view/analysis/index.html），必须先转绝对 URL
+		if (baseUrl) {
+			try { baseUrl = new URL(baseUrl, location.href).href; } catch (e) { baseUrl = ''; }
+		}
+		var parsed = this._parseFragment(html, baseUrl);
 		this._scopeDom(parsed.nodes);
 		$frame.empty().append(parsed.nodes);
 
 		parsed.scripts.forEach(function (item) {
 			if (item.src) {
 				var s = document.createElement('script');
-				s.src = item.src;
+				s.src = this._resolveUrl(item.src, baseUrl);
 				if (item.async) s.async = true;
 				document.body.appendChild(s);
 			} else if (item.code) {
@@ -191,7 +200,7 @@ layui.define(['jquery', 'element'], function (exports) {
 		var self = this;
 		if (!href) return Promise.resolve();
 		return this.loadHtml(href).then(function (html) {
-			self.injectHtml(html, $frame);
+			self.injectHtml(html, $frame, href);
 			element.init();
 		}).catch(function (xhr) {
 			if (xhr instanceof Error) {
@@ -204,9 +213,24 @@ layui.define(['jquery', 'element'], function (exports) {
 	}
 
 	/**
+	 * @private 将相对 URL 解析为绝对 URL（以 baseUrl 为基准）；
+	 *          协议相对 / data: / blob: / 锚点等保持原样。
+	 */
+	page.prototype._resolveUrl = function (url, baseUrl) {
+		if (!url) return url;
+		if (/^(?:https?:)?\/\/|^data:|^blob:|^mailto:|^javascript:|^tel:|^#/i.test(url)) return url;
+		try {
+			if (baseUrl) baseUrl = new URL(baseUrl, location.href).href;
+			return new URL(url, baseUrl || location.href).href;
+		} catch (e) {
+			return url;
+		}
+	}
+
+	/**
 	 * @private 分离 DOM 与 script
 	 */
-	page.prototype._parseFragment = function (html) {
+	page.prototype._parseFragment = function (html, baseUrl) {
 		var template = document.createElement('template');
 		// 与原版 $frame.html(data) 行为对齐：整页解析注入。
 		// <head> 里的 <link>/<style> 会被片段解析解包进 content，注入后样式继续生效；
@@ -217,6 +241,21 @@ layui.define(['jquery', 'element'], function (exports) {
 		// 仅提取可执行脚本；type="text/html" 等模板节点（laytpl 工具栏/单元格模板）
 		// 必须保留在 DOM 中供 laytpl 按 id 读取，绝不能 eval（否则抛 Unexpected token '<'）
 		var EXECUTABLE = ['', 'text/javascript', 'application/javascript', 'module'];
+		// 注入模式下相对路径按页面自身 URL 预解析为绝对 URL（子路径部署兼容）
+		if (baseUrl) {
+			var SELF_CLOSING_URL = /^(?:https?:)?\/\/|^data:|^blob:|^mailto:|^javascript:|^tel:|^#/i;
+			Array.prototype.forEach.call(
+				template.content.querySelectorAll('[src], [href]'),
+				function (el) {
+					['src', 'href'].forEach(function (attr) {
+						var val = el.getAttribute(attr);
+						if (!val || SELF_CLOSING_URL.test(val)) return;
+						try {
+							el.setAttribute(attr, new URL(val, baseUrl).href);
+						} catch (e) { /* 非法 URL 保持原样 */ }
+					});
+				});
+		}
 		var scriptNodes = template.content.querySelectorAll('script');
 		Array.prototype.forEach.call(scriptNodes, function (node) {
 			var type = (node.getAttribute('type') || '').trim().toLowerCase();
