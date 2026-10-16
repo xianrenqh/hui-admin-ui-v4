@@ -57,6 +57,11 @@ layui.define(['jquery', 'element', 'dropdown', 'page'], function (exports) {
 			rollPage("right", option);
 		})
 		element.init();
+		// 优化：滚动钮按需显示——仅当标签溢出时出现；滚动时维护到边禁用态
+		$(".layui-tab[lay-filter='" + option.elem + "'] .layui-tab-title").on("scroll",
+			function () { updateRollState(option); });
+		$(window).on("resize." + option.elem, function () { updateRollState(option); });
+		updateRollState(option);
 
 		// 修复：异步填充面板（激活页优先；preload=true 时并行预载其余）
 		$.each(option.data, function (i, item) {
@@ -378,6 +383,8 @@ var that = this;
 		}
 		element.tabChange(this.option.elem, opt.id);
 		sessionStorage.setItem(this.option.elem + "-pear-tab-page-data-current", opt.id);
+		// 新开标签可能触发溢出，刷新滚动钮显隐/禁用态
+		updateRollState(this.option);
 	}
 
 	/**
@@ -414,7 +421,7 @@ var that = this;
 			$panel.attr("data-loaded", "0").empty();
 			page.setActive(pid);
 			page.loadHtml($panel.attr("data-src")).then(function (html) {
-				page.injectHtml(html, $panel);
+				page.injectHtml(html, $panel, $panel.attr("data-src"));
 				$panel.attr("data-loaded", "1");
 				element.init();
 				if ($iframeLoad != undefined) {
@@ -474,6 +481,8 @@ var that = this;
 		removeTab.remove();
 		var tabContent = $(".layui-tab[lay-filter='" + elem + "']").find("*[id='" + id + "']").parent();
 		tabContent.remove();
+		// 关闭标签后可能不再溢出，刷新滚动钮显隐/禁用态
+		updateRollState({ elem: elem });
 	}
 
 	/**
@@ -543,17 +552,34 @@ var that = this;
 		return tab;
 	}
 
+	/**
+	 * @private 维护滚动钮状态：
+	 * - 标签未溢出时隐藏 prev/next（tool 下拉钮不受影响）
+	 * - 滚动到最左/最右时给按钮加 layui-disabled 禁用态
+	 */
+	function updateRollState(option) {
+		var $box = $(".layui-tab[lay-filter='" + option.elem + "']");
+		var title = $box.find(".layui-tab-title")[0];
+		if (!title) return;
+		var overflow = title.scrollWidth > title.clientWidth + 1;
+		$box.toggleClass("layui-tab-overflow", overflow);
+		$box.find(".layui-tab-prev").toggleClass("layui-disabled",
+			title.scrollLeft <= 0);
+		$box.find(".layui-tab-next").toggleClass("layui-disabled",
+			title.scrollLeft + title.clientWidth >= title.scrollWidth - 1);
+	}
+
 	function rollPage(d, option) {
 		var $tabTitle = $('#' + option.elem + '  .layui-tab-title');
 		var left = $tabTitle.scrollLeft();
 		if ('left' === d) {
 			$tabTitle.animate({
 				scrollLeft: left - 450
-			}, 200);
+			}, 200, function () { updateRollState(option); });
 		} else {
 			$tabTitle.animate({
 				scrollLeft: left + 450
-			}, 200);
+			}, 200, function () { updateRollState(option); });
 		}
 	}
 
@@ -583,7 +609,7 @@ var that = this;
 		page.option.scopeId = option.scopeId === true;
 		page.setActive(item.id);
 		return page.loadHtml(item.url).then(function (html) {
-			page.injectHtml(html, $panel);
+			page.injectHtml(html, $panel, item.url);
 			$panel.attr("data-loaded", "1").removeAttr("data-loading");
 			element.init();
 		}).catch(function (xhr) {

@@ -101,9 +101,23 @@
 	line-height: 40px;
 	width: 40px;
 	background-color: white;
-	border-top: whitesmoke 1px solid;
-	border-bottom: whitesmoke 1px solid;
 	text-align: center;
+	color: #9d9d9d;
+	font-size: 15px;
+	cursor: pointer;
+	user-select: none;
+	transition: background-color .2s, color .2s;
+}
+
+.pear-tab-page .layui-tab-control>li:hover {
+	background-color: #f3f4f6;
+	color: var(--global-primary-color);
+}
+
+.pear-tab-page .layui-tab-control>li.layui-disabled {
+	color: #dcdcdc;
+	cursor: default;
+	background-color: transparent;
 }
 
 .pear-tab-page .layui-tab-prev {
@@ -127,8 +141,15 @@
 	display: none;
 }
 
-.pear-tab-page.layui-tab-roll .layui-tab-control .layui-tab-prev,
-.pear-tab-page.layui-tab-roll .layui-tab-control .layui-tab-next {
+/* tool 下拉钮（批量关闭菜单）常显 */
+.pear-tab-page.layui-tab-tool .layui-tab-control .layui-tab-tool,
+.pear-tab-page.layui-tab-rollTool .layui-tab-control .layui-tab-tool {
+	display: block;
+}
+
+/* 滚动钮仅在标签溢出（出现横向滚动）时显示 */
+.pear-tab-page.layui-tab-overflow .layui-tab-control .layui-tab-prev,
+.pear-tab-page.layui-tab-overflow .layui-tab-control .layui-tab-next {
 	display: block;
 }
 
@@ -142,10 +163,6 @@
 	padding-right: 40px;
 }
 
-.pear-tab-page.layui-tab-tool .layui-tab-control .layui-tab-tool {
-	display: block;
-}
-
 .pear-tab-page.layui-tab-tool .layui-tab-title {
 	padding-left: 0px;
 	padding-right: 40px;
@@ -156,10 +173,14 @@
 	padding-right: 80px;
 }
 
-.pear-tab-page.layui-tab-rollTool .layui-tab-control .layui-tab-prev,
-.pear-tab-page.layui-tab-rollTool .layui-tab-control .layui-tab-next,
-.pear-tab-page.layui-tab-rollTool .layui-tab-control .layui-tab-tool {
-	display: block;
+/* 无溢出时不给滚动钮留空位，标签从头排布 */
+.pear-tab-page.layui-tab-roll:not(.layui-tab-overflow) > .layui-tab-title {
+	padding-left: 0px;
+}
+
+.pear-tab-page.layui-tab-rollTool:not(.layui-tab-overflow) > .layui-tab-title {
+	padding-left: 0px;
+	padding-right: 40px;
 }
 
 .pear-tab-page .layui-tab-tool .layui-nav {
