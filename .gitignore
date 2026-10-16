@@ -1,0 +1,9 @@
+# IDE
+.idea/
+
+# build artifacts
+*.map
+
+# OS junk
+Thumbs.db
+Desktop.ini

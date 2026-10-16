@@ -1,0 +1,243 @@
+/**
+ * iziToast 现代主题（不改库，仅覆盖样式）
+ * 风格参考 Notyf：白底/暗底卡片 + 左侧色条 + 圆形图标
+ */
+
+/* 容器定位：flex 下必须用 align-items，text-align 无效 */
+.iziToast-wrapper {
+    padding: 16px !important;
+    box-sizing: border-box !important;
+}
+
+.iziToast-wrapper-topRight,
+.iziToast-wrapper-bottomRight {
+    align-items: flex-end !important;
+}
+
+.iziToast-wrapper-topLeft,
+.iziToast-wrapper-bottomLeft {
+    align-items: flex-start !important;
+}
+
+.iziToast-wrapper-topCenter,
+.iziToast-wrapper-bottomCenter,
+.iziToast-wrapper-center {
+    align-items: center !important;
+}
+
+/* 胶囊宽度跟随内容，避免 max-width 把 toast 钉在左侧 */
+.iziToast-wrapper .iziToast-capsule {
+    width: auto !important;
+    max-width: min(360px, calc(100vw - 32px)) !important;
+    pointer-events: all;
+}
+
+/* 基础卡片 */
+.iziToast.hui-toast,
+.iziToast {
+    width: auto !important;
+    max-width: min(360px, calc(100vw - 32px)) !important;
+    min-height: 48px !important;
+    margin: 0 0 10px 0 !important;
+    padding: 12px 40px 12px 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+    overflow: hidden !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+}
+
+.iziToast::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 4px !important;
+    background: var(--global-primary-color, #16baaa) !important;
+    border-radius: 10px 0 0 10px !important;
+    z-index: 2 !important;
+}
+
+/* 覆盖默认彩色大底 */
+.iziToast.iziToast-color-green,
+.iziToast.iziToast-color-red,
+.iziToast.iziToast-color-orange,
+.iziToast.iziToast-color-yellow,
+.iziToast.iziToast-color-blue {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.iziToast.iziToast-color-green::before {
+    background: #22c55e !important;
+}
+
+.iziToast.iziToast-color-red::before {
+    background: #ef4444 !important;
+}
+
+.iziToast.iziToast-color-orange::before,
+.iziToast.iziToast-color-yellow::before {
+    background: #f59e0b !important;
+}
+
+.iziToast.iziToast-color-blue::before {
+    background: #3b82f6 !important;
+}
+
+/* 正文区 */
+.iziToast > .iziToast-body {
+    margin: 0 0 0 14px !important;
+    padding: 0 0 0 42px !important;
+    min-height: 28px !important;
+}
+
+.iziToast > .iziToast-body .iziToast-texts {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    float: none !important;
+    min-height: 28px;
+}
+
+.iziToast > .iziToast-body .iziToast-title {
+    float: none !important;
+    color: #1f2937 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+}
+
+.iziToast > .iziToast-body .iziToast-message {
+    float: none !important;
+    color: #374151 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+}
+
+/* 圆形图标（兼容 layui-icon） */
+.iziToast > .iziToast-body .iziToast-icon {
+    left: 0 !important;
+    top: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+    margin-top: -14px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    background-image: none !important;
+    background-color: color-mix(in srgb, var(--global-primary-color, #16baaa) 16%, transparent) !important;
+    color: var(--global-primary-color, #16baaa) !important;
+}
+
+.iziToast.iziToast-color-green > .iziToast-body .iziToast-icon {
+    background-color: rgba(34, 197, 94, 0.15) !important;
+    color: #16a34a !important;
+}
+
+.iziToast.iziToast-color-red > .iziToast-body .iziToast-icon {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #dc2626 !important;
+}
+
+.iziToast.iziToast-color-orange > .iziToast-body .iziToast-icon,
+.iziToast.iziToast-color-yellow > .iziToast-body .iziToast-icon {
+    background-color: rgba(245, 158, 11, 0.16) !important;
+    color: #d97706 !important;
+}
+
+.iziToast.iziToast-color-blue > .iziToast-body .iziToast-icon {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+    color: #2563eb !important;
+}
+
+/* 关闭按钮 */
+.iziToast > .iziToast-close {
+    width: 36px !important;
+    opacity: 0.45 !important;
+    filter: none !important;
+}
+
+.iziToast > .iziToast-close:hover {
+    opacity: 0.85 !important;
+}
+
+/* 进度条 */
+.iziToast > .iziToast-progressbar {
+    background: transparent !important;
+}
+
+.iziToast > .iziToast-progressbar > div {
+    height: 3px !important;
+    border-radius: 0 0 10px 10px !important;
+    background: var(--global-primary-color, #16baaa) !important;
+}
+
+.iziToast.iziToast-color-green > .iziToast-progressbar > div {
+    background: #22c55e !important;
+}
+
+.iziToast.iziToast-color-red > .iziToast-progressbar > div {
+    background: #ef4444 !important;
+}
+
+.iziToast.iziToast-color-orange > .iziToast-progressbar > div,
+.iziToast.iziToast-color-yellow > .iziToast-progressbar > div {
+    background: #f59e0b !important;
+}
+
+.iziToast.iziToast-color-blue > .iziToast-progressbar > div {
+    background: #3b82f6 !important;
+}
+
+/** ====== 暗黑模式 ====== */
+body.pear-admin-dark .iziToast,
+.pear-admin-dark .iziToast {
+    background: #252627 !important;
+    border-color: #3a3b3c !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.pear-admin-dark .iziToast.iziToast-color-green,
+body.pear-admin-dark .iziToast.iziToast-color-red,
+body.pear-admin-dark .iziToast.iziToast-color-orange,
+body.pear-admin-dark .iziToast.iziToast-color-yellow,
+body.pear-admin-dark .iziToast.iziToast-color-blue,
+.pear-admin-dark .iziToast.iziToast-color-green,
+.pear-admin-dark .iziToast.iziToast-color-red,
+.pear-admin-dark .iziToast.iziToast-color-orange,
+.pear-admin-dark .iziToast.iziToast-color-yellow,
+.pear-admin-dark .iziToast.iziToast-color-blue {
+    background: #252627 !important;
+    border-color: #3a3b3c !important;
+}
+
+body.pear-admin-dark .iziToast > .iziToast-body .iziToast-title,
+.pear-admin-dark .iziToast > .iziToast-body .iziToast-title {
+    color: #f3f4f6 !important;
+}
+
+body.pear-admin-dark .iziToast > .iziToast-body .iziToast-message,
+.pear-admin-dark .iziToast > .iziToast-body .iziToast-message {
+    color: #e5e7eb !important;
+}
+
+body.pear-admin-dark .iziToast > .iziToast-close,
+.pear-admin-dark .iziToast > .iziToast-close {
+    filter: invert(1) !important;
+    opacity: 0.5 !important;
+}
+
+body.pear-admin-dark .iziToast > .iziToast-close:hover,
+.pear-admin-dark .iziToast > .iziToast-close:hover {
+    opacity: 0.9 !important;
+}

@@ -1,0 +1,66 @@
+<div class="pear-container">
+	<div class="layui-card">
+		<div class="layui-card-header">页面生命周期（4.0.4 新增）</div>
+		<div class="layui-card-body">
+			<blockquote class="layui-elem-quote layui-quote-nm">
+				业务页调用 <code>layui.page.register({ init, destroy })</code> 登记；
+				关闭标签 / 刷新时壳会调用 <code>destroy</code>，防止定时器与事件泄漏。
+				多标签 keepState 下写死的 <code>id / lay-filter</code> 会冲突，
+				可用 <code>layui.page.uid('name')</code> 生成带标签前缀的唯一 id。
+			</blockquote>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="layui-btn-container">
+						<button type="button" class="layui-btn layui-btn-sm" id="ping">手动 ping</button>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<span>tabId：<b id="tab-id">-</b>　uid("demo-box")：<b id="uid-demo">-</b></span>
+				</div>
+			</div>
+			<pre id="log" style="background:#0f172a;color:#e2e8f0;padding:12px;border-radius:6px;min-height:140px;max-height:260px;overflow:auto;"></pre>
+		</div>
+	</div>
+</div>
+
+<script>
+layui.use(['page'], function () {
+	var pageMod = layui.page;
+	var timer = null;
+	var tick = 0;
+	var $log = pageMod.$('#log');
+
+	function log(msg) {
+		var t = new Date().toLocaleTimeString();
+		$log.append('[' + t + '] ' + msg + '\n');
+		$log.scrollTop($log[0].scrollHeight);
+	}
+
+	var page = {
+		init: function () {
+			log('init');
+			pageMod.$('#tab-id').text(pageMod.getActive());
+			pageMod.$('#uid-demo').text(pageMod.uid('demo-box'));
+			timer = setInterval(function () {
+				tick += 1;
+				log('tick #' + tick);
+			}, 500);
+			pageMod.$('#ping').on('click.pearLifecycle', function () {
+				log('ping');
+			});
+		},
+		destroy: function () {
+			log('destroy（若你还能看到后续 tick，说明泄漏）');
+			if (timer) {
+				clearInterval(timer);
+				timer = null;
+			}
+			pageMod.$('#ping').off('click.pearLifecycle');
+		}
+	};
+
+	page.init();
+	pageMod.register(page);
+});
+</script>

@@ -1,0 +1,207 @@
+<link rel="stylesheet" href="../../admin/css/other/profile.css" />
+
+<body>
+    <div class="pear-container">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="padding: 25px;">
+                        <div class="text-center layui-text">
+                            <div class="user-info" id="userInfoHead">
+                                <img src="../../admin/images/avatar.jpg" id="userAvatar" width="115px" height="115px"
+                                    alt="">
+                            </div>
+                            <h2 class="user-name">Hui Admin</h2>
+                            <p class="user-home">China ， 中国</p>
+                        </div>
+                    </div>
+                    <div
+                        class="user-desc">
+                        <span>今日事 ，今日毕</span>
+                    </div>
+                </div>
+
+                <div class="layui-card">
+					<div class="layui-card-header">留言板</div>
+					<div class="layui-card-body">
+						<ul class="message-board">
+							<li>
+								<p>项目周会定在每周一上午 10 点，请准时参加。</p>
+								<span>4月30日 22:43</span>
+								<a href="javascript:;" data-id="1"
+									class="layui-btn layui-btn-primary layui-btn-xs message-board-reply">回复</a>
+							</li>
+							<li>
+								<p>新版登录页已上线，欢迎体验反馈。</p>
+								<span>4月30日 22:43</span>
+								<a href="javascript:;" data-id="1"
+									class="layui-btn layui-btn-primary layui-btn-xs message-board-reply">回复</a>
+							</li>
+                            <li>
+								<p>需求评审文档已同步到共享盘。</p>
+								<span>12月25日 19:92</span>
+								<a href="javascript:;" data-id="1"
+									class="layui-btn layui-btn-primary layui-btn-xs message-board-reply">回复</a>
+							</li>
+							<li>
+								<p>线上告警已处理完毕，详情见值班日志。</p>
+								<span>6月11日 15:33</span>
+								<a href="javascript:;" data-id="1"
+									class="layui-btn layui-btn-primary layui-btn-xs message-board-reply">回复</a>
+							</li>
+							<li>
+								<p>本周迭代聚焦于性能优化与稳定性。</p>
+								<span>2月09日 13:40</span>
+								<a href="javascript:;" data-id="1"
+									class="layui-btn layui-btn-primary layui-btn-xs message-board-reply">回复</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+            </div>
+            <div class="layui-col-md9">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        我的文章
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">多标签页生命周期设计：从挂载到销毁的资源回收</div>
+                                <div class="blog-content">
+                                    多标签页同开时，写死的 DOM id 与定时器会互相踩踏。本文梳理 init/destroy 生命周期钩子与唯一 id 方案。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">中后台权限菜单模型：配置驱动与动态渲染</div>
+                                <div class="blog-content">
+                                    基于 YAML 菜单配置动态渲染侧边栏，配合路由守卫与按钮级权限指令，实现配置即权限。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">暗色主题落地实践：CSS 变量与主题作用域隔离</div>
+                                <div class="blog-content">
+                                    用 CSS 变量集中管理颜色令牌，按 body 类切换作用域，避免主题样式互相污染。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">Canvas 动态验证码的防机器识别策略</div>
+                                <div class="blog-content">
+                                    随机字符扰动、笔画扭斜与噪点线条三管齐下，兼顾人眼识别率与机器识别成本。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">数据看板最佳实践：ECharts 图表复用与按需加载</div>
+                                <div class="blog-content">
+                                    图表实例按需初始化与销毁，窗口 resize 防抖重排，主题色与设计令牌保持一致。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">消息中心设计：分组、未读统计与聚合推送</div>
+                                <div class="blog-content">
+                                    消息按业务域分组聚合，红点只算未读，已读回执与服务端状态最终一致。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">YAML 配置驱动的应用初始化方案</div>
+                                <div class="blog-content">
+                                    全局配置收敛到单个 YAML 文件，启动时校验与合并默认值，减少硬编码散落。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10" style="margin: 15px;">
+                            <div class="layui-col-md1">
+                                <img src="../../admin/images/blog.jpg"
+                                    style="width: 100%;height: 100%;border-radius: 5px;" />
+                            </div>
+                            <div class="layui-col-md11" style="height: 80px;">
+                                <div class="blog-title">YAML 配置驱动的应用初始化方案</div>
+                                <div class="blog-content">
+                                    全局配置收敛到单个 YAML 文件，启动时校验与合并默认值，减少硬编码散落。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        layui.use(['jquery', 'element', 'layer', 'tools'], function () {
+            var element = layui.element,
+                layer = layui.layer,
+                $ = layui.jquery,
+                tools = layui.tools;
+
+            let MODULE_PATH = "operate/";
+
+            var image = new Image();
+            image.src = "../../admin/images/avatar.jpg";
+            image.onload = function () {
+                $("#userAvatar").attr("src", tools.imageToBase64(image));
+            }
+
+            window.callback = function (data) {
+                layer.close(data.index);
+                $("#userAvatar").attr("src", data.newAvatar);
+            }
+
+            $("#userAvatar").click(function () {
+                layer.open({
+                    type: 2,
+                    title: '更换图片',
+                    shade: 0.1,
+                    area: ["900px", "500px"],
+                    content: MODULE_PATH + 'profile.html',
+                    btn: ['确定', '取消'],
+                    yes: function (index, layero) {
+                        window['layui-layer-iframe' + index].submitForm();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

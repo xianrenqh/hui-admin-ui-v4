@@ -1,0 +1,278 @@
+/* ============================================================
+ * Hui Admin 视觉优化层（hui-theme.css）
+ * 参考“深色侧边栏 + 白色顶栏 + 浅灰内容区 + 圆角卡片 + 无边框表格”的
+ * 现代中后台风格，仅做外观覆盖，不改变任何结构/行为。
+ * 依赖：variables.css 中的 --global-primary-color；加载顺序在本文件之前即可。
+ * ============================================================ */
+
+/* ---------- 1. 侧边栏（深色主题） ---------- */
+
+.pear-admin .dark-theme.layui-side .layui-side-scroll,
+.pear-admin .layui-side .dark-theme.layui-side-scroll {
+	background-color: #252b34 !important;
+}
+
+.pear-admin .dark-theme.layui-side .layui-logo {
+	background-color: #1f252e !important;
+	border-bottom: 1px solid rgba(255, 255, 255, .07) !important;
+}
+
+.pear-admin .dark-theme.layui-side .layui-logo .title {
+	color: #ffffff;
+	letter-spacing: .5px;
+}
+
+.pear-admin .pear-menu.layui-nav-tree {
+	background-color: transparent !important;
+}
+
+/* 一级分组行 */
+.pear-admin .pear-menu > .layui-nav-item > a {
+	color: #aeb7c4;
+	height: 45px;
+	line-height: 45px;
+	margin: 2px 10px;
+	border-radius: 6px;
+	transition: background-color .2s, color .2s;
+}
+
+.pear-admin .pear-menu > .layui-nav-item > a:hover {
+	color: #ffffff;
+	background-color: rgba(255, 255, 255, .06);
+}
+
+/* 展开的分组 */
+.pear-admin .pear-menu > .layui-nav-item.layui-nav-itemed > a {
+	color: #ffffff;
+	background-color: color-mix(in srgb, var(--global-primary-color, #16baaa) 16%, transparent);
+}
+
+/* 子菜单容器透明化，让父级底色透出 */
+.pear-admin .pear-menu .layui-nav-child {
+	background-color: transparent !important;
+	padding-bottom: 6px;
+}
+
+.pear-admin .pear-menu .layui-nav-child dd {
+	background-color: transparent !important;
+}
+
+/* 子菜单行（选中/未选中统一 margin+padding，保证文字对齐） */
+.pear-admin .pear-menu .layui-nav-child dd > a {
+	color: #93a0b1;
+	height: 42px;
+	line-height: 42px;
+	margin: 2px 10px;
+	padding: 0 14px 0 36px;
+	border-radius: 6px;
+	transition: background-color .2s, color .2s;
+}
+
+.pear-admin .pear-menu .layui-nav-child dd > a:hover {
+	color: #ffffff;
+	background-color: rgba(255, 255, 255, .07);
+}
+
+/* 选中项：teal 实底圆角胶囊，与上级对齐补满整行 */
+.pear-admin .pear-menu .layui-nav-child dd.layui-this > a,
+.pear-admin .pear-menu .layui-this > a.site-demo-active,
+.pear-admin .pear-menu dd.layui-this a {
+	background-color: var(--global-primary-color, #16baaa) !important;
+	color: #ffffff !important;
+	margin: 2px 10px !important;
+}
+
+/* 侧边栏（浅色主题同样使用 teal 胶囊选中态） */
+.pear-admin .light-theme.layui-side .layui-side-scroll {
+	background-color: #ffffff !important;
+}
+
+.pear-admin .light-theme .pear-menu > .layui-nav-item > a {
+	color: #4b5563;
+	height: 45px;
+	line-height: 45px;
+	margin: 2px 10px;
+	border-radius: 6px;
+}
+
+.pear-admin .light-theme .pear-menu > .layui-nav-item > a:hover {
+	color: var(--global-primary-color, #16baaa);
+	background-color: #f3f5f7;
+}
+
+.pear-admin .light-theme .pear-menu .layui-nav-child {
+	background-color: transparent !important;
+}
+
+.pear-admin .light-theme .pear-menu .layui-nav-child dd {
+	background-color: transparent !important;
+}
+
+.pear-admin .light-theme .pear-menu .layui-nav-child dd > a {
+	color: #6b7280;
+	height: 42px;
+	line-height: 42px;
+	margin: 2px 10px;
+	padding: 0 14px 0 36px;
+	border-radius: 6px;
+}
+
+.pear-admin .light-theme .pear-menu .layui-nav-child dd.layui-this > a,
+.pear-admin .light-theme .pear-menu dd.layui-this a {
+	background-color: var(--global-primary-color, #16baaa) !important;
+	color: #ffffff !important;
+	margin: 2px 10px !important;
+}
+
+/* ---------- 2. 顶栏与标签页 ---------- */
+
+.pear-admin .layui-header {
+	box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+}
+
+/* 标签页：紧凑圆角胶囊，选中实底 */
+.pear-admin .pear-tab-page .layui-tab-title {
+	padding: 0 10px;
+	height: 56px;
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li {
+	height: 32px;
+	line-height: 32px;
+	margin: 12px 3px;
+	padding: 0 14px;
+	border-radius: 6px;
+	color: #6b7280;
+	border-bottom: none;
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li:hover {
+	color: var(--global-primary-color, #16baaa);
+	background-color: color-mix(in srgb, var(--global-primary-color, #16baaa) 10%, transparent);
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li.layui-this {
+	background-color: var(--global-primary-color, #16baaa) !important;
+	color: #ffffff !important;
+	border-bottom: none;
+	border-radius: 6px;
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li.layui-this:after {
+	display: none;
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li.layui-this .layui-tab-close {
+	color: rgba(255, 255, 255, .85);
+}
+
+.pear-admin .pear-tab-page .layui-tab-title li .layui-tab-close:hover {
+	background-color: transparent;
+	color: #f56c6c;
+	border-radius: 4px;
+}
+
+/* ---------- 3. 内容区与卡片（仅浅色内容模式） ---------- */
+
+body:not(.pear-admin-dark) .pear-admin .layui-body {
+	background-color: #f5f6f8;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-card {
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(16, 24, 40, .05);
+	border: 1px solid #eef0f3;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-card-header {
+	border-bottom-color: #f2f3f5;
+}
+
+/* ---------- 4. 表格现代化（仅浅色内容模式） ---------- */
+
+body:not(.pear-admin-dark) .pear-admin .layui-table-view {
+	border-color: #eef0f3;
+	box-shadow: none;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table-header {
+	background-color: #fafbfc;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table th {
+	color: #616675;
+	font-weight: 600;
+	background-color: transparent;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table td {
+	color: #3f4552;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table th,
+body:not(.pear-admin-dark) .pear-admin .layui-table td {
+	border-color: #f2f3f5;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table-hover {
+	background-color: #f6fafa;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-table-tool,
+body:not(.pear-admin-dark) .pear-admin .layui-table-page {
+	border-color: #f2f3f5;
+}
+
+/* ---------- 5. 按钮 / 表单 / 分页 ---------- */
+
+.pear-admin .layui-btn {
+	border-radius: 6px;
+	font-weight: 500;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-input,
+body:not(.pear-admin-dark) .pear-admin .layui-select,
+body:not(.pear-admin-dark) .pear-admin .layui-textarea {
+	border-radius: 6px;
+	border-color: #e3e6eb;
+}
+
+body:not(.pear-admin-dark) .pear-admin .layui-input:focus,
+body:not(.pear-admin-dark) .pear-admin .layui-textarea:focus {
+	border-color: var(--global-primary-color, #16baaa);
+}
+
+.pear-admin .layui-form-select dl {
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.pear-admin .layui-form-select dl dd.layui-this {
+	background-color: var(--global-primary-color, #16baaa);
+	color: #fff;
+}
+
+.pear-admin .layui-laypage .layui-laypage-em {
+	background-color: var(--global-primary-color, #16baaa) !important;
+	border-radius: 4px;
+}
+
+.pear-admin .layui-laypage a,
+.pear-admin .layui-laypage span,
+.pear-admin .layui-laypage button {
+	border-radius: 4px;
+}
+
+/* ---------- 6. 细节 ---------- */
+
+/* 消息/头像下拉与弹层圆角 */
+.pear-admin .layui-nav-child {
+	border-radius: 8px;
+}
+
+/* 面包屑式圆角滚动按钮 */
+.pear-admin .pear-tab-page .layui-tab-control li {
+	border-radius: 6px;
+}

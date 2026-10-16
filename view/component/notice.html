@@ -1,0 +1,69 @@
+<div class="pear-container notice-demo">
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">消息提醒</div>
+                <div class="layui-card-body">
+                    <p class="layui-pd">notice（toastr）用于右下角消息通知场景，页面加载后会自动弹出四条示例。</p>
+                    <button class="layui-btn js-info">通用消息</button>
+                    <button class="layui-btn layui-btn-success js-success">成功消息</button>
+                    <button class="layui-btn layui-btn-danger js-error">错误消息</button>
+                    <button class="layui-btn layui-btn-warming js-warning">警告消息</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">消息移除</div>
+                <div class="layui-card-body">
+                    <button class="layui-btn layui-btn-primary js-clear">移除全部</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">用法</div>
+                <div class="layui-card-body">
+<pre style="background:#0f172a;color:#e2e8f0;padding:12px;border-radius:6px;overflow:auto;">layui.use(['notice'], function () {
+    var notice = layui.notice;
+
+    notice.success('成功消息');
+    notice.error('危险消息');
+    notice.warning('警告消息');
+    notice.info('通用消息');
+
+    notice.clear(); // 移除全部
+});</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+layui.use(['notice', 'jquery'], function () {
+    var notice = layui.notice;
+    var $ = layui.$;
+
+    notice.success('成功消息');
+    notice.error('危险消息');
+    notice.warning('警告消息');
+    notice.info('通用消息');
+
+    $('.js-success').on('click', function () {
+        notice.success('成功消息');
+    });
+    $('.js-error').on('click', function () {
+        notice.error('危险消息');
+    });
+    $('.js-warning').on('click', function () {
+        notice.warning('警告消息');
+    });
+    $('.js-info').on('click', function () {
+        notice.info('通用消息');
+    });
+    $('.js-clear').on('click', function () {
+        notice.clear();
+    });
+});
+</script>

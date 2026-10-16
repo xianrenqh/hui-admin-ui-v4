@@ -1,0 +1,99 @@
+<style>
+    .popup-demo .layui-card-body {
+        padding: 20px;
+    }
+</style>
+<div class="pear-container popup-demo">
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">提示消息</div>
+                <div class="layui-card-body">
+                    <p class="layui-pd">popup 基于 layer 的语义化封装，全局停留时长可通过 <code>layui.popup.config.duration</code> 配置。</p>
+                    <button class="layui-btn js-success">成功消息</button>
+                    <button class="layui-btn layui-btn-danger js-failure">失败消息</button>
+                    <button class="layui-btn layui-btn-warming js-warning">警告消息</button>
+                    <button class="layui-btn layui-btn-primary js-info">无图标提示</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">回调函数</div>
+                <div class="layui-card-body">
+                    <button class="layui-btn js-success-callback">成功消息（带回调）</button>
+                    <button class="layui-btn layui-btn-danger js-failure-callback">失败消息（带回调）</button>
+                    <button class="layui-btn layui-btn-warming js-warning-callback">警告消息（带回调）</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">询问框</div>
+                <div class="layui-card-body">
+                    <button class="layui-btn js-confirm">确认删除</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">打开弹窗</div>
+                <div class="layui-card-body">
+                    <button class="layui-btn js-open">打开内嵌页弹窗</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+layui.use(['popup', 'jquery'], function () {
+    var popup = layui.popup;
+    var $ = layui.$;
+
+    $('.js-success').on('click', function () {
+        popup.success('成功消息');
+    });
+    $('.js-failure').on('click', function () {
+        popup.failure('失败消息');
+    });
+    $('.js-warning').on('click', function () {
+        popup.warning('警告消息');
+    });
+    $('.js-info').on('click', function () {
+        popup.info('已保存');
+    });
+
+    $('.js-success-callback').on('click', function () {
+        popup.success('成功消息', function () {
+            popup.info('回调函数已执行');
+        });
+    });
+    $('.js-failure-callback').on('click', function () {
+        popup.failure('失败消息', function () {
+            popup.info('回调函数已执行');
+        });
+    });
+    $('.js-warning-callback').on('click', function () {
+        popup.warning('警告消息', function () {
+            popup.info('回调函数已执行');
+        });
+    });
+
+    $('.js-confirm').on('click', function () {
+        popup.confirm('确定删除这条数据吗？', function (index) {
+            layer.close(index);
+            popup.success('已删除');
+        });
+    });
+
+    $('.js-open').on('click', function () {
+        popup.open({
+            title: '内嵌页弹窗',
+            type: 2,
+            area: ['60%', '60%'],
+            content: 'lifecycle.html'
+        });
+    });
+});
+</script>

@@ -1,0 +1,110 @@
+<style>
+    .onetime-password-container {
+        width: 90%;
+        height: 92%;
+        margin: 15px auto;
+        position: relative;
+    }
+
+    .onetime-password-container .onetime_title {
+        font-size: 20px;
+    }
+
+    .onetime-password-container .onetime_title i {
+        font-size: 25px;
+        color: #f4c500;
+    }
+
+    .onetime-password-container .onetime_one {
+        background: #f7f7f7;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .onetime-password-container .onetime_one ul li {
+        list-style: disc;
+        margin-bottom: 6px;
+    }
+
+    .onetime-password-container .onetime_one ul li:nth-of-type(1) {
+        color: #f00;
+    }
+
+    .onetime-password-container .onetime_one ul li:nth-of-type(2) {
+        color: #f00;
+    }
+
+    .onetime-password-container .onetime_one ul li:nth-of-type(3) {
+        color: #f00;
+    }
+
+    .onetime-password-container .onetime_two {
+        margin-top: 30px;
+        color: #666;
+    }
+
+    .onetime-password-container {
+        width: 90%;
+        height: 92%;
+        margin: 15px auto;
+        position: relative;
+    }
+
+    .onetime-password-container .onetime_title {
+        font-size: 20px;
+    }
+
+    .onetime-password-container .onetime_ewm {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    .onetime-password-container .onetime_ewm img {
+        width: 100%;
+        vertical-align: middle;
+    }
+</style>
+<div class="pear-container">
+    <div class="layui-card">
+        <div class="layui-card-header">页面弹层</div>
+        <div class="layui-card-body">
+            <button id="clickBtn">点击</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    layui.use(['layer'], function () {
+        var $ = layui.$
+
+      let container = '<div class="onetime-password-container" id="set-onetime-password-container">\n' +
+        '    <div class="onetime_title">\n' +
+        '        扫码绑定（使用身份验证器APP扫码）\n' +
+        '    </div>\n' +
+        '    <div class="onetime_ewm">\n' +
+        '        <center><img id="onetime_ewm_img" src=""/></center>\n' +
+        '    </div>\n' +
+        '    <div class="onetime_one">\n' +
+        '        <ul>\n' +
+        '            <li>开启服务后，请立即使用“Google身份验证器”等APP绑定，以免出现无法登录的情况。</li>\n' +
+        '            <li>同一个IP验证成功后24小时内无需再次验证。</li>\n' +
+        '            <li>各大软件商店均可下载身份验证器APP，支持安卓、IOS系统。</li>\n' +
+        '        </ul>\n' +
+        '    </div>\n' +
+        '</div>';
+
+      $("#clickBtn").click(function(){
+        layer.open({
+          title: '编辑 - id:1',
+          type: 1,
+          area: ['80%', '80%'],
+          content: container
+        });
+      })
+
+    })
+
+</script>

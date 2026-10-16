@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>登录</title>
+	<link rel="stylesheet" href="./component/hui/css/hui.css" />
+	<link rel="stylesheet" href="./admin/css/other/login.css" />
+	<link rel="stylesheet" href="./admin/css/variables.css" />
+	<script>if (window.self != window.top) { top.location.reload();}</script>
+</head>
+
+<body>
+	<div class="login-page" style="background-image: url(./admin/images/background.svg)">
+		<div class="layui-row">
+			<div class="layui-col-sm6 login-bg layui-hide-xs">
+				<img class="login-bg-img" src="./admin/images/banner.png" alt="" />
+			</div>
+			<div class="layui-col-sm6 layui-col-xs12 login-form">
+				<div class="layui-form">
+					<div class="form-center">
+						<div class="form-center-box">
+							<div class="top-log-title">
+								<img class="top-log" src="./admin/images/logo.png" alt="" />
+								<span>Hui Admin 4.0</span>
+							</div>
+							<div class="top-desc">
+								开 箱 即 用 的 中 后 台 前 端 模 板
+							</div>
+							<div style="margin-top: 30px;">
+								<div class="layui-form-item">
+									<div class="layui-input-wrap">
+										<div class="layui-input-prefix">
+											<i class="layui-icon layui-icon-username"></i>
+										</div>
+										<input name="account" id="login-account" lay-verify="required" placeholder="账户" autocomplete="off"
+											class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-wrap">
+										<div class="layui-input-prefix">
+											<i class="layui-icon layui-icon-password"></i>
+										</div>
+										<input type="password" name="password" value=""
+											lay-verify="required" placeholder="密码" autocomplete="off"
+											class="layui-input" lay-affix="eye">
+									</div>
+								</div>
+								<div class="layui-form-item tab-log-verification">
+									<div class="verification-text">
+										<div class="layui-input-wrap">
+											<div class="layui-input-prefix">
+												<i class="layui-icon layui-icon-auz"></i>
+											</div>
+											<input name="captcha" id="login-captcha-input" lay-verify="required" placeholder="验证码" autocomplete="off"
+												class="layui-input">
+										</div>
+									</div>
+									<canvas id="login-captcha" class="verification-canvas" width="110" height="42" title="看不清？点击刷新"></canvas>
+								</div>
+								<div class="layui-form-item">
+									<div class="remember-passsword">
+										<div class="remember-cehcked">
+											<input type="checkbox" name="remember" id="remember-account" lay-skin="primary" title="记住账户">
+										</div>
+									</div>
+								</div>
+								<div class="login-btn">
+									<button type="button" lay-submit lay-filter="login" class="layui-btn login">登 录</button>
+								</div>
+								<div class="other-login">
+									<div class="other-login-methods">
+										其他方式
+									</div>
+									<a class="greenText" href="./register.html">注册账号</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 资 源 引 入 -->
+	<script src="./component/layui/layui.js"></script>
+	<script src="./component/hui/hui.js"></script>
+	<script src="./admin/js/captcha.js"></script>
+	<script>
+		layui.use(['form', 'button', 'popup', 'jquery'], function () {
+			var form = layui.form;
+			var button = layui.button;
+			var popup = layui.popup;
+			var $ = layui.jquery;
+
+			// 动态验证码（点击刷新）
+			var captchaCanvas = document.getElementById('login-captcha');
+			var captchaInput = document.getElementById('login-captcha-input');
+			function refreshCaptcha() {
+				Captcha.render(captchaCanvas);
+				captchaInput.value = '';
+			}
+			refreshCaptcha();
+			$(captchaCanvas).on('click', refreshCaptcha);
+
+			// 记住账户
+			var saved = localStorage.getItem('pear-login-account');
+			if (saved) {
+				$('#login-account').val(saved);
+				$('#remember-account').prop('checked', true);
+			}
+			form.render('checkbox');
+
+			// 登 录 提 交
+			form.on('submit(login)', function (data) {
+				// 校验验证码（本地演示逻辑，接入后端后改为服务端校验）
+				if (!Captcha.check(captchaCanvas, captchaInput)) {
+					popup.failure('验证码不正确');
+					refreshCaptcha();
+					return false;
+				}
+
+				// 记住账户
+				if ($('#remember-account').prop('checked')) {
+					localStorage.setItem('pear-login-account', $('#login-account').val());
+				} else {
+					localStorage.removeItem('pear-login-account');
+				}
+
+				/// 验证
+
+				/// 登录
+
+				/// 动画
+				button.load({
+					elem: '.login',
+					time: 1500,
+					done: function () {
+						popup.success("登录成功", function () {
+							location.href = "./index.html"
+						});
+					}
+				})
+
+				return false;
+			});
+		})
+	</script>
+</body>
+
+</html>

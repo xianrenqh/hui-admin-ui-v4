@@ -1,0 +1,91 @@
+<div class="pear-container watermark-demo">
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">水印创建</div>
+                <div class="layui-card-body">
+                    <p class="layui-pd">watermark 用于页面水印叠加，带 <code>MutationObserver</code> 防篡改（删除/修改 DOM 会自动恢复）与窗口 resize 重排。</p>
+                    <button class="layui-btn js-wm1">单行水印</button>
+                    <button class="layui-btn layui-btn-danger js-wm2">多行水印</button>
+                    <button class="layui-btn layui-btn-warming js-wm3">叠加目标</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">指定容器水印</div>
+                <div class="layui-card-body">
+                    <div id="water_div" style="width: 100%; height: 300px; overflow: hidden; position: relative; border: 1px solid gainsboro; background-color: #EEE; display: flex; justify-content: space-around; align-items: center;">
+                        <span style="color:#999;">水印将叠加在这个容器上</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">移除水印</div>
+                <div class="layui-card-body">
+                    <button class="layui-btn layui-btn-primary js-destroy">销毁水印</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">用法</div>
+                <div class="layui-card-body">
+<pre style="background:#0f172a;color:#e2e8f0;padding:12px;border-radius:6px;overflow:auto;">layui.use(['watermark'], function () {
+    var watermark = layui.watermark;
+
+    var mark = new watermark({ content: '单行水印' });
+
+    new watermark({ content: '多行水印1&lt;br&gt;多行水印2', height: 40 });
+
+    new watermark({ content: '指定容器上', appendTo: '#water_div' });
+
+    mark.upload('新水印文字');   // 更新文字
+    mark.render({ rotate: 30 }); // 重渲染
+    mark.destroy();              // 销毁
+});</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+layui.use(['watermark', 'jquery'], function () {
+    var watermark = layui.watermark;
+    var $ = layui.$;
+
+    var mark_node = null;
+
+    function removeWatermark() {
+        if (mark_node) {
+            mark_node.destroy();
+            mark_node = null;
+        }
+    }
+
+    $(".js-wm1").on('click', function () {
+        removeWatermark();
+        mark_node = new watermark({ content: "单行水印" });
+    });
+    $(".js-wm2").on('click', function () {
+        removeWatermark();
+        mark_node = new watermark({
+            content: "多行水印1<br>第二行长多行水印2",
+            height: 40
+        });
+    });
+    $(".js-wm3").on('click', function () {
+        removeWatermark();
+        mark_node = new watermark({
+            content: "指定目标上",
+            appendTo: '#water_div'
+        });
+    });
+    $(".js-destroy").on('click', function () {
+        removeWatermark();
+    });
+});
+</script>
